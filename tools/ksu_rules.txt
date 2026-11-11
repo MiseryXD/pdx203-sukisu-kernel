@@ -1,0 +1,59 @@
+# ksu_file: kernel's own file label (KERNEL_SU_FILE "ksu_file")
+type ksu_file file_type
+typeattribute ksu_file mlstrustedobject
+allow domain ksu_file * *
+allow ksu_file * * *
+
+# --- domain su ---
+type su domain
+permissive su
+typeattribute su mlstrustedsubject
+typeattribute su netdomain
+typeattribute su bluetoothdomain
+allow su * * *
+allowxperm su * blk_file ioctl *
+allowxperm su * fifo_file ioctl *
+allowxperm su * chr_file ioctl *
+allowxperm su * file ioctl *
+allow init su * *
+allow domain su process sigchld
+allow domain su fd use
+allow domain su fifo_file { write read open getattr }
+allow domain su unix_stream_socket { read write connectto getopt getattr }
+allow domain su binder *
+allow system_server su process { getpgid sigkill }
+allow servicemanager su dir { search read }
+allow servicemanager su file { open read }
+allow servicemanager su process getattr
+allow hwservicemanager su dir search
+allow hwservicemanager su file { read open }
+allow hwservicemanager su process getattr
+allow logd su dir search
+allow logd su file { read open getattr }
+
+# --- domain ksu ---
+type ksu domain
+permissive ksu
+typeattribute ksu mlstrustedsubject
+typeattribute ksu netdomain
+typeattribute ksu bluetoothdomain
+allow ksu * * *
+allowxperm ksu * blk_file ioctl *
+allowxperm ksu * fifo_file ioctl *
+allowxperm ksu * chr_file ioctl *
+allowxperm ksu * file ioctl *
+allow init ksu * *
+allow domain ksu process sigchld
+allow domain ksu fd use
+allow domain ksu fifo_file { write read open getattr }
+allow domain ksu unix_stream_socket { read write connectto getopt getattr }
+allow domain ksu binder *
+allow system_server ksu process { getpgid sigkill }
+allow servicemanager ksu dir { search read }
+allow servicemanager ksu file { open read }
+allow servicemanager ksu process getattr
+allow hwservicemanager ksu dir search
+allow hwservicemanager ksu file { read open }
+allow hwservicemanager ksu process getattr
+allow logd ksu dir search
+allow logd ksu file { read open getattr }

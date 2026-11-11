@@ -1,0 +1,34 @@
+# 密钥 / 凭证
+.token
+*.pem
+*.key
+.env
+build-next.env
+
+# 构建产物与镜像（体积大，且可能在别处分发受限制）
+src/
+out/
+wsl-out/
+artifacts/
+toolchain/
+*.img
+*.bin
+*.zip
+*.apk
+vendor_out/
+
+# 日志 / 抓取物 / 截图（可能含设备标识）
+*.log
+job*.bin
+job*.txt
+dmesg*.txt
+pstore/
+ocr*.txt
+crop_*.png
+t_*_*.png
+t_*_*.txt
+*.json
+
+# 编辑器
+.DS_Store
+Thumbs.db

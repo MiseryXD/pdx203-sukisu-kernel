@@ -1,0 +1,45 @@
+name: build-ksu-kernel
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 340
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install build deps
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq bc bison flex libssl-dev libelf-dev cpio rsync \
+            binutils-aarch64-linux-gnu gcc-aarch64-linux-gnu
+
+      - name: Fetch clang r547379 (AOSP prebuilt)
+        run: |
+          mkdir -p "$RUNNER_TEMP/clang"
+          cd "$RUNNER_TEMP/clang"
+          curl -sSL --retry 3 "https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/heads/main/clang-r547379.tar.gz" -o clang.tar.gz
+          tar -xzf clang.tar.gz
+          rm -f clang.tar.gz
+          "$RUNNER_TEMP/clang/bin/clang" --version
+          echo "$RUNNER_TEMP/clang/bin" >> "$GITHUB_PATH"
+
+      - name: Build kernel
+        run: |
+          sed -i 's/\r$//' build.sh
+          bash build.sh
+
+      - name: Upload Image
+        uses: actions/upload-artifact@v4
+        with:
+          name: pdx203-ksu-image
+          path: |
+            src/out/arch/arm64/boot/Image
+            src/out/vmlinux
+            src/out/include/config/kernel.release
+          if-no-files-found: error
