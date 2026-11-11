@@ -116,11 +116,41 @@ python tools/repack_boot.py stock_boot.img orig_kernel.bin _rt.img && cmp stock_
 刷入后，这两个文件**必须存在**，内核每次开机都会拉起它们做策略注入：
 
 ```
-/data/adb/ksu/bin/magiskpolicy     755   # 从 Magisk APK 抽出的 arm64 libmagiskpolicy
+/data/adb/ksu/bin/magiskpolicy     755   # Magisk APK 里的 lib/arm64-v8a/libmagiskpolicy.so
 /data/adb/ksu/bin/ksu_rules.txt    644   # 见 tools/ksu_rules.txt
 ```
 
 不依赖任何 KernelSU 模块。
+
+### 怎么装这两个文件
+
+`magiskpolicy` 不是独立发布的二进制，它就在 Magisk APK 里（`lib/arm64-v8a/libmagiskpolicy.so`，
+ET_DYN，可执行）。已验证版本 **Magisk v31.1**（更新的版本同样可用，只要还带这个 so）：
+
+```bash
+# 1. 取 APK（官方 release；直连不通时可套 gh-proxy）
+curl -L -o Magisk-v31.1.apk \
+  "https://github.com/topjohnwu/Magisk/releases/download/v31.1/Magisk-v31.1.apk"
+
+# 2. 一键抽取 + 推送 + 装到 /data/adb/ksu/bin（需要 adb 与设备 root）
+bash tools/install_injector.sh Magisk-v31.1.apk
+```
+
+手动等价命令：
+
+```bash
+unzip -o Magisk-v31.1.apk lib/arm64-v8a/libmagiskpolicy.so -d /tmp/mp
+adb push /tmp/mp/lib/arm64-v8a/libmagiskpolicy.so /data/local/tmp/magiskpolicy
+adb push tools/ksu_rules.txt /data/local/tmp/ksu_rules.txt
+adb shell 'su -c "mkdir -p /data/adb/ksu/bin && cp /data/local/tmp/magiskpolicy /data/adb/ksu/bin/magiskpolicy && chmod 755 /data/adb/ksu/bin/magiskpolicy && cp /data/local/tmp/ksu_rules.txt /data/adb/ksu/bin/ksu_rules.txt && chmod 644 /data/adb/ksu/bin/ksu_rules.txt"'
+```
+
+验证注入是否真的生效（用 `runcon`，`chcon` 不校验上下文）：
+
+```bash
+adb shell "su -c '/data/adb/ksu/bin/magiskpolicy --live --apply /data/adb/ksu/bin/ksu_rules.txt'"
+adb shell "su -c 'runcon u:r:ksu:s0 id'"     # → uid=0(root) … context=u:r:ksu:s0
+```
 
 ## 刷入 / 回滚
 
@@ -150,8 +180,16 @@ config/pdx203_ksu_lto.config  内核配置（LTO+CFI 开，与原厂一致）
 tools/wsl_build.sh            WSL 构建入口（离线/在线）
 tools/repack_boot.py          boot.img 重打包（保留 AVB）
 tools/ksu_rules.txt           SELinux 注入规则（su + ksu 双域）
+tools/install_injector.sh     从 Magisk APK 抽 magiskpolicy 并装到设备
 docs/known-good-images.md     各轮镜像结果台账（仅文字记录，不含镜像）
 ```
+
+## 许可
+
+- 本仓库的**脚本与文档**（`build.sh`、`tools/*`、`docs/*`、`README.md`）：MIT，见 `LICENSE`
+- `build.sh` 里对内核源码的补丁（3h~3m）属于对 **Linux 内核（GPL-2.0）** 及厂商内核树的修改，
+  其衍生部分按 **GPL-2.0** 分发；内核源码请从其上游获取
+- Release 中的 boot 镜像包含厂商 ramdisk，仅供同型号设备自用，不在本仓库的许可范围内
 
 ## 免责声明
 
