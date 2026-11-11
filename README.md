@@ -122,6 +122,10 @@ python tools/repack_boot.py stock_boot.img orig_kernel.bin _rt.img && cmp stock_
 
 不依赖任何 KernelSU 模块。
 
+> **只刷镜像不装这两个文件**也能用 root，但 SELinux 会停在 **Permissive**
+> （内核找不到 `ksu` 域时按设计降级）。要 Enforcing 必须装好并重启一次。
+> Release 附件里已附带这两个文件（`magiskpolicy-arm64`、`ksu_rules.txt`）。
+
 ### 怎么装这两个文件
 
 `magiskpolicy` 不是独立发布的二进制，它就在 Magisk APK 里（`lib/arm64-v8a/libmagiskpolicy.so`，
