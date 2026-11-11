@@ -33,7 +33,7 @@
   CLANG_VER=r563880c KSU_VERSION_FULL_OVERRIDE=SukiSUv4.3.0-r2 \
   KSU_ALLOW_LTO=1 JOBS=24 bash tools/wsl_build.sh
   ```
-- 工具链来源：镜像站下载 `clang-r563880c`（`AndroidVersion.txt` = `21.0.0 / based on r563880c`，`BUILD_INFO.bid` = `14054515`），装到 WSL `/opt/clang-r563880c`。
+- 工具链来源：镜像站下载 `clang-r563880c`（包内 `AndroidVersion.txt` = `21.0.0 / based on r563880c`，`BUILD_INFO.bid` = `14054515`），装到 WSL `/opt/clang-r563880c`。
 - 坑：`3m` 的锚点必须是 `drivers/kernelsu/Kbuild`——`drivers/kernelsu` 本身就是指向 `KernelSU/kernel` 的软链，写成 `drivers/kernelsu/kernel/Kbuild` 会 `FileNotFoundError` 直接中断构建。
 
 ## ✅ 最终版：SukiSU + **Enforcing** 可用 root
