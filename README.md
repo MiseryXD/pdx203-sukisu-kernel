@@ -13,7 +13,7 @@
 | 设备 | pdx203（Xperia 1 II），A/B，slot `_a` |
 | 内核 | `4.19.325-perf-gd3216e6faee6`，**非 GKI** |
 | 内核源码 | `AlcatrazDev-Android-Devices/kernel_sony_sm8250`（vendor 树，自带旧版 KernelSU 0.9.5） |
-| 工具链 | AOSP clang **r563880c / 21.0.0**（与原厂内核同一把） |
+| 工具链 | AOSP clang **r563880c / 21.0.0**（与原厂内核相同） |
 | 根方案 | SukiSU-Ultra `v4.3.0-r2`，配合管理器 `com.sukisu.ultra` v4.3.0-r2 |
 | 加固 | 保持原厂配置：**LTO + CFI 全开** |
 
