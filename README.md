@@ -73,10 +73,10 @@ ps -A                        → lspd（LSPosed）、zn-zygisk-companion64 均�
 CLANG_VER=r563880c KSU_ALLOW_LTO=1 JOBS=$(nproc) bash tools/wsl_build.sh
 
 # 离线（内核源码与 SukiSU 已在本地，路径按需替换）
-KSU_SRC_LOCAL=/home/<user>/src/vendor/src \
-CONFIG_FILE=/home/<user>/ksu-build/config/pdx203_ksu_lto.config \
+KSU_SRC_LOCAL=/path/to/vendor/src \
 CLANG_VER=r563880c KSU_VERSION_FULL_OVERRIDE=SukiSUv4.3.0-r2 \
 KSU_ALLOW_LTO=1 JOBS=24 bash tools/wsl_build.sh
+# 配置默认就是仓库里的 config/pdx203_ksu_lto.config；要换用别的配置再传 CONFIG_FILE=...
 ```
 
 产物落在 `wsl-out/`：`Image` + `kernel.release` + `config.used`。
@@ -104,6 +104,9 @@ python tools/repack_boot.py stock_boot.img wsl-out/Image new_boot.img
 # 自检：把原 kernel 塞回去必须与原镜像逐字节相同
 python tools/repack_boot.py stock_boot.img orig_kernel.bin _rt.img && cmp stock_boot.img _rt.img
 ```
+
+> 上面 `stock_boot.img` / `orig_kernel.bin` / `new_boot.img` 都是**占位文件名**，指向你自己的
+> 原厂 `boot.img` 和从中切出的 kernel 段；这些二进制不在本仓库内。
 
 `repack_boot.py` 保留原 header、ramdisk、dtb、Sony 风格内嵌 AVB vbmeta blob 和 AVBf 页脚，
 并按原分区大小补零。

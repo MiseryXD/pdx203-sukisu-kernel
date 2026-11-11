@@ -84,15 +84,18 @@ KSU_SRC_LOCAL=/home/<user>/src/vendor/src JOBS=24 bash tools/wsl_build.sh
 
 共同点（缺一不可）：
 - 源码：`AlcatrazDev-Android-Devices/kernel_sony_sm8250` @ `533b86f4123c`
-- 工具链：AOSP clang `r547379`（`android.googlesource.com` 直连可下）
+- 工具链：AOSP clang **`r563880c` / 21.0.0**（与原厂内核同一把，`BUILD_INFO.bid=14054515`）
 - `CONFIG_LOCALVERSION="-perf-gd3216e6faee6"` + `CONFIG_LOCALVERSION_AUTO=n`，且源码副本里 `rm -rf .git`、删掉 `localversion-*`
 - 构建后必须断言 `out/include/config/kernel.release == 4.19.325-perf-gd3216e6faee6`
 
-变体 A（最小改动，已验证可开机 + root）：`VENDOR_KSU` 标记 + `config/pdx203_vendor.config`，LTO/CFI 关，不加任何补丁。
+仓库只提供成品配置 `config/pdx203_ksu_lto.config`（LTO+CFI 开，与原厂一致）：
+撤掉树内 KSU 0.9.5 → 重新 apply `fs/namespace.c` 的 `path_umount` 回移 → 拉取 SukiSU `v4.3.0-r2` → 一串 4.19 兼容补丁（3h~3m）。
 
-变体 B（SukiSU 移植）：无标记文件 + `config/pdx203_ksu.config`，
-撤掉树内 KSU 0.9.5 → 重新 apply `fs/namespace.c` 的 `path_umount` 回移 → 上游 SukiSU `main` 安装脚本 → 一串 4.19 兼容补丁。
-本地构建：`KSU_ALLOW_LTO=1 JOBS=16 bash tools/wsl_build.sh`（WSL2 Ubuntu-22.04，`~/ksu-build`，产物回到 `wsl-out/`）。
+本地构建：`CLANG_VER=r563880c KSU_ALLOW_LTO=1 JOBS=24 bash tools/wsl_build.sh`
+（WSL2 Ubuntu-22.04，构建树 `~/ksu-build`，产物回到 `wsl-out/`）。
+
+早期用于二分排查的 `CONFIG_KSU=n` 基线与 vendor 0.9.5 基线配置**不在本仓库内**；
+需要时从同一份源码导出，把 `CONFIG_KSU` 关掉或保留树内驱动即可。
 
 ## 重打包（只换 kernel 段）
 
