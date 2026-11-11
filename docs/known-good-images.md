@@ -21,10 +21,11 @@
 
 | 文件 | 内容 | 状态 |
 |---|---|---|
-| `ksu_stock_clang_lto_WORKING.img` | 原厂同款 **clang r563880c / 21.0.0**（`5e96669f`，与原厂 banner 同哈希）+ **LTO+CFI 开** + `__pa()` + 3i/3j/3k/3l + `KSU_VERSION_FULL_OVERRIDE=SukiSUv4.3.0-r2` | ✅ **已刷机 + 重启双验证**：Enforcing、`context=u:r:ksu:s0`、avc 拒绝 0（sha256 `5c3f5b181025c5acc8c3d446fb39c213f19daef145e94ac04a2d305278d7e3b1`）|
+| `ksu_stock_clang_lto_WORKING.img` | 原厂同款 **clang r563880c / 21.0.0**（`5e96669f`，与原厂 banner 同哈希）+ **LTO+CFI 开** + `__pa()` + 3i/3j/3k/3l + `KSU_VERSION_FULL_OVERRIDE=SukiSUv4.3.0-r2` | ✅ **已刷机 + 重启双验证**：Enforcing、`context=u:r:ksu:s0`、avc 拒绝 0（sha256 `3fcdc911cd12b5c5b0e097f9d536a15f04033a070d7af0b9610a195cadac354d`）|
 
 - `/proc/version`：`Linux version 4.19.325-perf-gd3216e6faee6 (build@host) (Android (14054515, +pgo, +bolt, +lto, +mlgo, based on r563880c) clang version 21.0.0 …)` —— 编译器/构建号与原厂完全一致，只有构建者名不同。
 - Image 61,126,680 B（原厂 kernel 段 61,114,392 B，+12 KB），`uname -r` 与原厂相同。
+- `/proc/version` banner 也逐字对齐原厂：`(build-user@build-host)`（`build.sh` 里默认导出 `KBUILD_BUILD_USER/HOST`，避免把构建机用户名写进镜像）。
 - 管理器「内核完整版本」显示 `SukiSUv4.3.0-r2`（由 `build.sh` **3m** 通过 `KSU_VERSION_FULL_OVERRIDE` 注入 `kernel/Kbuild`，不动 working version，管理器兼容性不受影响）。
 - 本机构建命令（离线）：
   ```bash

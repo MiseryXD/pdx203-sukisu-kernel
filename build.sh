@@ -4,6 +4,11 @@
 # Root solution: SukiSU-Ultra (main branch, kprobe hooks)
 set -euo pipefail
 
+# 构建者信息会写进 /proc/version，默认是 WSL 的用户名@主机名。
+# 对齐原厂 banner（build-user@build-host），同时避免把本机用户名打进镜像。
+export KBUILD_BUILD_USER="${KBUILD_BUILD_USER:-build-user}"
+export KBUILD_BUILD_HOST="${KBUILD_BUILD_HOST:-build-host}"
+
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SRC="$ROOT/src"
 

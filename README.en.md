@@ -95,6 +95,10 @@ KSU_ALLOW_LTO=1 JOBS=24 bash tools/wsl_build.sh
 
 Artifacts land in `wsl-out/`: `Image`, `kernel.release`, `config.used`.
 
+> `build.sh` exports `KBUILD_BUILD_USER=build-user` and `KBUILD_BUILD_HOST=build-host` by
+> default, so `/proc/version` matches the stock banner and no local username/hostname is
+> embedded in the image.
+
 ### Assertions that must hold
 
 ```bash
