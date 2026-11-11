@@ -1,5 +1,7 @@
 # pdx203 SukiSU-Ultra 内核（4.19 非 GKI，Enforcing + root）
 
+[English](README.en.md) | 中文
+
 给 **Sony Xperia 1 II（pdx203 / XQ-AT52）** 的 vendor 4.19 内核打上 **SukiSU-Ultra v4.3.0-r2**，
 在 **SELinux Enforcing** 状态下拿到可用的 root。
 
