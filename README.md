@@ -72,7 +72,7 @@ ps -A                        → lspd（LSPosed）、zn-zygisk-companion64 均�
 # 在线（从 GitHub 拉源码 + SukiSU）
 CLANG_VER=r563880c KSU_ALLOW_LTO=1 JOBS=$(nproc) bash tools/wsl_build.sh
 
-# 离线（源码与 SukiSU 已在本地，见 build.env.example）
+# 离线（内核源码与 SukiSU 已在本地，路径按需替换）
 KSU_SRC_LOCAL=/home/<user>/src/vendor/src \
 CONFIG_FILE=/home/<user>/ksu-build/config/pdx203_ksu_lto.config \
 CLANG_VER=r563880c KSU_VERSION_FULL_OVERRIDE=SukiSUv4.3.0-r2 \
@@ -142,17 +142,12 @@ fastboot flash boot <原厂 boot.img>
 ## 目录
 
 ```
-build.sh                    主构建脚本（含 3h/3i/3j/3k/3l/3m 兼容补丁）
-config/
-  pdx203_ksu.config         SukiSU 版配置（LTO 关，快速验证用）
-  pdx203_ksu_lto.config     SukiSU 版配置（LTO+CFI 开，与原厂一致）
-  pdx203_vendor.config      vendor 原样基线（CONFIG_KSU=y，树内 0.9.5）
-tools/
-  wsl_build.sh              WSL 构建入口（离线/在线）
-  repack_boot.py            boot.img 重打包（保留 AVB）
-  ksu_rules.txt             SELinux 注入规则（su + ksu 双域）
-docs/known-good-images.md   各轮镜像的结果台账（仅文字记录，不含镜像）
-build.env.example           离线构建环境变量示例
+build.sh                      主构建脚本（含 3h/3i/3j/3k/3l/3m 兼容补丁）
+config/pdx203_ksu_lto.config  内核配置（LTO+CFI 开，与原厂一致）
+tools/wsl_build.sh            WSL 构建入口（离线/在线）
+tools/repack_boot.py          boot.img 重打包（保留 AVB）
+tools/ksu_rules.txt           SELinux 注入规则（su + ksu 双域）
+docs/known-good-images.md     各轮镜像结果台账（仅文字记录，不含镜像）
 ```
 
 ## 免责声明
