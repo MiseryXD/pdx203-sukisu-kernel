@@ -83,6 +83,9 @@ KSU_ALLOW_LTO=1 JOBS=24 bash tools/wsl_build.sh
 
 产物落在 `wsl-out/`：`Image` + `kernel.release` + `config.used`。
 
+> `build.sh` 默认导出 `KBUILD_BUILD_USER=build-user` / `KBUILD_BUILD_HOST=build-host`，
+> 使 `/proc/version` 里的构建者信息与原厂一致，也不会把本机用户名/主机名写进镜像。
+
 ### 必须成立的两个断言
 
 ```bash
