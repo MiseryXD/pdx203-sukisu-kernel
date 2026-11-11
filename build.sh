@@ -13,7 +13,7 @@ SRC="$ROOT/src"
 # kernel / toolchain / config breaks boot".
 BASELINE=0
 [ -f "$ROOT/NO_KSU" ] && BASELINE=1 || true
-CFG_FILE="${CONFIG_FILE:-$ROOT/config/pdx203_ksu.config}"
+CFG_FILE="${CONFIG_FILE:-$ROOT/config/pdx203_ksu_lto.config}"
 # ./VENDOR_KSU present -> do NO integration work at all and just build the tree
 # as the maintainer shipped it (in-tree KernelSU 0.9.5) with CONFIG_KSU=y.
 # Minimal possible diff from stock: only LTO/CFI are off.
