@@ -205,6 +205,7 @@ Prerequisites for anyone else flashing this:
 ## Layout
 
 ```
+README.md / README.en.md      Chinese / English documentation
 build.sh                      main build script (3h/3i/3j/3k/3l/3m compat steps)
 config/pdx203_ksu_lto.config  kernel config (LTO+CFI, matches stock)
 tools/wsl_build.sh            WSL build entry point (online/offline)
