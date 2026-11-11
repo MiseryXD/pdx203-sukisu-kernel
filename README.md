@@ -184,6 +184,7 @@ fastboot flash boot <原厂 boot.img>
 ## 目录
 
 ```
+README.md / README.en.md      中文 / 英文说明
 build.sh                      主构建脚本（含 3h/3i/3j/3k/3l/3m 兼容补丁）
 config/pdx203_ksu_lto.config  内核配置（LTO+CFI 开，与原厂一致）
 tools/wsl_build.sh            WSL 构建入口（离线/在线）
