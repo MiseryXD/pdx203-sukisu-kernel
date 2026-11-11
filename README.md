@@ -194,6 +194,23 @@ tools/install_injector.sh     从 Magisk APK 抽 magiskpolicy 并装到设备
 docs/known-good-images.md     各轮镜像结果台账（仅文字记录，不含镜像）
 ```
 
+## 致谢
+
+这个项目能跑起来，靠的是下面这些项目和人：
+
+| 项目 | 用在哪 |
+|---|---|
+| [**SukiSU-Ultra**](https://github.com/SukiSU-Ultra/SukiSU-Ultra) | 内核驱动与管理器本体，本项目的核心 |
+| [**KernelSU**](https://github.com/tiann/KernelSU) | SukiSU 的上游项目，非 GKI 支持的源头 |
+| [**Magisk**](https://github.com/topjohnwu/Magisk) | `magiskpolicy`：4.19 上唯一可行的运行时策略注入工具 |
+| [**kernel_sony_sm8250**](https://github.com/AlcatrazDev-Android-Devices/kernel_sony_sm8250) | 本机 4.19 vendor 内核源码树（Alcatraz323 维护） |
+| [**AOSP clang prebuilts**](https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/) | `r563880c` 工具链，与原厂内核同款 |
+| [**Evolution X**](https://github.com/Evolution-X) | 设备所运行的 ROM，也是这些兼容性问题的来源 |
+| [**Zygisk Next**](https://github.com/Dr-TSNG/ZygiskNext) | 用于验证模块框架在 4.19 上可用 |
+| [**LSPosed**](https://github.com/LSPosed/LSPosed) | 同上，验证 Zygisk 注入链路 |
+
+以及 Linux 内核社区——这整套东西本质上是把 5.x 的做法搬回 4.19。
+
 ## 许可
 
 - 本仓库的**脚本与文档**（`build.sh`、`tools/*`、`docs/*`、`README.md`）：MIT，见 `LICENSE`

@@ -215,6 +215,23 @@ tools/install_injector.sh     extract magiskpolicy from a Magisk APK and install
 docs/known-good-images.md     image-by-image result ledger (text only, no binaries)
 ```
 
+## Acknowledgements
+
+None of this would exist without these projects:
+
+| Project | Used for |
+|---|---|
+| [**SukiSU-Ultra**](https://github.com/SukiSU-Ultra/SukiSU-Ultra) | the kernel driver and manager this port is built on |
+| [**KernelSU**](https://github.com/tiann/KernelSU) | upstream of SukiSU and of non-GKI support |
+| [**Magisk**](https://github.com/topjohnwu/Magisk) | `magiskpolicy`, the only practical way to reload the policy on 4.19 |
+| [**kernel_sony_sm8250**](https://github.com/AlcatrazDev-Android-Devices/kernel_sony_sm8250) | the 4.19 vendor kernel tree for this device (maintained by Alcatraz323) |
+| [**AOSP clang prebuilts**](https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/) | the `r563880c` toolchain, the same one the stock kernel was built with |
+| [**Evolution X**](https://github.com/Evolution-X) | the ROM on the test device, and the source of most compatibility problems |
+| [**Zygisk Next**](https://github.com/Dr-TSNG/ZygiskNext) | used to prove the module framework works on 4.19 |
+| [**LSPosed**](https://github.com/LSPosed/LSPosed) | same, verifying the Zygisk injection path |
+
+And the Linux kernel community — this is essentially 5.x practice dragged back to 4.19.
+
 ## License
 
 - scripts and docs (`build.sh`, `tools/*`, `docs/*`, `README*`): MIT, see `LICENSE`
