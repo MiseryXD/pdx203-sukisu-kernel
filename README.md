@@ -71,10 +71,23 @@ Nova v3.0.0 的代码基线是 5.x，直接编 4.19 会有 13 组错误，`compa
 
 ## 构建
 
+### 前置依赖
+
+| 依赖 | 获取方式 |
+|---|---|
+| 内核树 | `git clone https://github.com/AlcatrazDev-Android-Devices/kernel_sony_sm8250 ~/src/vendor/src`（默认路径，可用 `KSU_SRC_LOCAL` 覆盖） |
+| AOSP clang | `curl -sSL 'https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/heads/main/clang-r563880c.tar.gz' -o /tmp/clang.tar.gz && sudo mkdir -p /opt/clang-r563880c && sudo tar -xzf /tmp/clang.tar.gz -C /opt/clang-r563880c` |
+| Nova 源码 | 脚本自动 clone 到 `~/cache/SukiSU-Nova`（可用 `NOVA_SRC` 覆盖） |
+| 构建环境 | WSL2 / Linux，**必须在 ext4 上编**，不要在 `/mnt/c` 里编 |
+
+### 用法
+
 ```bash
-# 依赖：WSL2（ext4 上编，别在 /mnt/c 里编）、/opt/clang-r563880c、内核树在 ~/src/vendor/src
-bash wsl_build_nova.sh
+bash wsl_build_nova.sh                     # 完整构建（约 15 分钟，LTO 链接占大头）
+KSU_CHECK_ONLY=1 bash wsl_build_nova.sh    # 只编驱动（约 1 分钟，先验证集成）
 ```
+
+脚本以自身所在目录为仓库根，不依赖本机绝对路径；产物在 `src/out/arch/arm64/boot/Image`。
 
 `wsl_build_nova.sh` 显式 `export PATH=/opt/clang-$CLANG_VER/bin:$PATH`——只写 `CLANG_VER=...`
 不会生效，会静默回落到系统 clang（Ubuntu clang 14），产物能开机但工具链与原厂不一致。

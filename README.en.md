@@ -61,12 +61,26 @@ Details: [`docs/ultra-v4.3.0-r2.md`](docs/ultra-v4.3.0-r2.md) (Chinese).
 
 ## Build
 
+### Prerequisites
+
+| Dependency | How to get it |
+|---|---|
+| Kernel tree | `git clone https://github.com/AlcatrazDev-Android-Devices/kernel_sony_sm8250 ~/src/vendor/src` (default; override with `KSU_SRC_LOCAL`) |
+| AOSP clang | `curl -sSL 'https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/heads/main/clang-r563880c.tar.gz' -o /tmp/clang.tar.gz && sudo mkdir -p /opt/clang-r563880c && sudo tar -xzf /tmp/clang.tar.gz -C /opt/clang-r563880c` |
+| Nova source | cloned automatically to `~/cache/SukiSU-Nova` (override with `NOVA_SRC`) |
+| Build env | WSL2 / Linux; build on **ext4**, never on `/mnt/c` |
+
+### Usage
+
 ```bash
-bash wsl_build_nova.sh
+bash wsl_build_nova.sh                     # full build (~15 min, LTO link dominates)
+KSU_CHECK_ONLY=1 bash wsl_build_nova.sh    # driver only (~1 min, verify integration first)
 ```
 
-Requires WSL2 (build on ext4, never on `/mnt/c`), `/opt/clang-r563880c`, kernel tree at
-`~/src/vendor/src`. The script must `export PATH=/opt/clang-$CLANG_VER/bin:$PATH` — setting only
+The script treats its own directory as the repo root — no absolute local paths. Output lands in
+`src/out/arch/arm64/boot/Image`.
+
+The script must `export PATH=/opt/clang-$CLANG_VER/bin:$PATH` — setting only
 `CLANG_VER=...` silently falls back to the system clang (Ubuntu clang 14); the result boots but the
 toolchain no longer matches stock. `Ubuntu clang` in `/proc/version` is the tell.
 
