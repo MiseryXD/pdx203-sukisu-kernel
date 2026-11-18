@@ -1,9 +1,22 @@
 # 各轮镜像结果台账
 
+> Nova（当前）与 Ultra（历史）两代构建的验证记录，按时间倒序。
+
 > 仅文字记录（不含镜像文件）。所有镜像均在同一台 pdx203 上手工刷入验证。
 
 设备：Sony Xperia 1 II (XQ-AT52 / pdx203)，slot `_a`，vendor ROM（Android 11），0 个 vendor `.ko`（全内建）。
 分区 boot 大小 96 MiB (100,663,296 B)，boot header v2，尾部含 AVB vbmeta blob(704 B) + AVBf 页脚。
+
+## SukiSU-Nova v3.0.0（当前）
+
+| 文件 | 内容 | 状态 |
+|---|---|---|
+| `pdx203_nova_v3.0.0_boot.img` | SukiSU-Nova v3.0.0；13 组 4.19 兼容补丁（`compat419.sh`）；clang r563880c / 21.0.0 + LTO/CFI；`boot_a` + `boot_b` 双刷 | ✅ 开机、`context=u:r:ksu:s0`、`ksud 3.0.0 (uapi: 6)`、4 个模块全部加载、Zygisk Next 1.5.3 + LSPosed 2.2.1 正常（sha256 `67d3b5a49d3e7ea3292db921702ce157190825207a199eb5866113de0ce3acad`）|
+
+构建入口 `wsl_build_nova.sh`（`KSU_CHECK_ONLY=1` 可只编驱动），集成方式见 README。
+以下为 Ultra 时代的记录，保留作参考。
+
+## SukiSU-Ultra v4.3.0-r2（历史）
 
 ## 已验证可用的镜像
 

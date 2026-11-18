@@ -103,6 +103,7 @@ Rollback: flash your stock `boot.img` back to `boot_a` / `boot_b`.
 ## History
 
 - SukiSU-Ultra `v4.3.0-r2`: [docs/ultra-v4.3.0-r2.md](docs/ultra-v4.3.0-r2.md)
+- Image verification ledger, including rejected attempts: [`docs/known-good-images.md`](docs/known-good-images.md)
 
 ## Credits
 

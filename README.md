@@ -112,6 +112,7 @@ fastboot reboot
 ## 历史版本
 
 - SukiSU-Ultra `v4.3.0-r2`：见 [docs/ultra-v4.3.0-r2.md](docs/ultra-v4.3.0-r2.md)
+- 各轮镜像验证台账（含未采用方案）：[`docs/known-good-images.md`](docs/known-good-images.md)
 
 ## 致谢
 
