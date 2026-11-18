@@ -234,7 +234,7 @@ And the Linux kernel community — this is essentially 5.x practice dragged back
 
 ## License
 
-- scripts and docs (`build.sh`, `tools/*`, `docs/*`, `README*`): MIT, see `LICENSE`
+- the repository as a whole is **GPL-3.0** (see `LICENSE`): the build scripts and compat patches act on SukiSU-Nova / SukiSU-Ultra (GPL-3.0) and Linux kernel (GPL-2.0) sources, so it is a derivative work and follows upstream; the earlier MIT notice is revoked
 - the kernel patches in `build.sh` (3h–3m) modify the **Linux kernel (GPL-2.0)** and the
   vendor tree, so those derivative parts are GPL-2.0; get the kernel source from upstream
 - the boot images in the release contain the vendor ramdisk and are outside this

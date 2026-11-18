@@ -114,6 +114,10 @@ fastboot reboot
 - SukiSU-Ultra `v4.3.0-r2`：见 [docs/ultra-v4.3.0-r2.md](docs/ultra-v4.3.0-r2.md)
 - 各轮镜像验证台账（含未采用方案）：[`docs/known-good-images.md`](docs/known-good-images.md)
 
+## 许可
+
+GPL-3.0，见 [`LICENSE`](LICENSE)。构建脚本与兼容补丁直接作用于 SukiSU-Nova（GPL-3.0）与 Linux 4.19 内核（GPL-2.0）的源码，属衍生作品，因此整体与上游一致以 GPL-3.0 分发。
+
 ## 致谢
 
 | 项目 | 贡献 |

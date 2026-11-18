@@ -105,6 +105,10 @@ Rollback: flash your stock `boot.img` back to `boot_a` / `boot_b`.
 - SukiSU-Ultra `v4.3.0-r2`: [docs/ultra-v4.3.0-r2.md](docs/ultra-v4.3.0-r2.md)
 - Image verification ledger, including rejected attempts: [`docs/known-good-images.md`](docs/known-good-images.md)
 
+## License
+
+GPL-3.0, see [`LICENSE`](LICENSE). The build scripts and compat patches act on SukiSU-Nova (GPL-3.0) and Linux 4.19 kernel (GPL-2.0) sources, so the repository is a derivative work and ships under GPL-3.0 to match upstream.
+
 ## Credits
 
 | Project | Contribution |

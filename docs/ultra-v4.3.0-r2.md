@@ -213,7 +213,7 @@ docs/known-good-images.md     各轮镜像结果台账（仅文字记录，不�
 
 ## 许可
 
-- 本仓库的**脚本与文档**（`build.sh`、`tools/*`、`docs/*`、`README.md`）：MIT，见 `LICENSE`
+- 本仓库整体为 **GPL-3.0**（见 `LICENSE`）：构建脚本与兼容补丁直接作用于 SukiSU-Nova / SukiSU-Ultra（GPL-3.0）与 Linux 内核（GPL-2.0）源码，属衍生作品，故与上游保持一致；原先的 MIT 声明已撤销
 - `build.sh` 里对内核源码的补丁（3h~3m）属于对 **Linux 内核（GPL-2.0）** 及厂商内核树的修改，
   其衍生部分按 **GPL-2.0** 分发；内核源码请从其上游获取
 - Release 中的 boot 镜像包含厂商 ramdisk，仅供同型号设备自用，不在本仓库的许可范围内
